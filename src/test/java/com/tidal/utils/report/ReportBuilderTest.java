@@ -1,6 +1,5 @@
 package com.tidal.utils.report;
 
-import com.tidal.flow.assertions.VerificationError;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -151,7 +150,7 @@ public class ReportBuilderTest {
 
 
 
-    @Test (expected = VerificationError.class)
+    @Test (expected = AssertionError.class)
     public void runtimeTimeoutActionFailureFailingTest(){
         final ReportMatcher functionalMatcher = new Reporter.FunctionalFailure();
         final ReportMatcher scriptFailureMatcher = new Reporter.ScriptFailure();
@@ -182,4 +181,5 @@ public class ReportBuilderTest {
         verify("Functional verification with 'other  types'", reportModel.generalFailure())
                 .isEqualTo("The scenario has pending or undefined step(s)");
     }
+
 }

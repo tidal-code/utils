@@ -196,12 +196,26 @@ public class ReportBuilder {
             Node type = node.getFirstChild().getNextSibling().getAttributes().getNamedItem("type");
             //Message attribute contains the failure message
             Node messageAttribute = node.getFirstChild().getNextSibling().getAttributes().getNamedItem("message");
-            //Failure type to classify what caused the run to fail
-            String typeContent = type.getTextContent();
-            //Clean the verification message of new lines and commas.
-            String failureMessage = messageAttribute.getTextContent().replace(",", "").replace("\n", "");
-            //Parse the type content and error message to classify the failure types
-            reportModel = reportMatcher.parse(typeContent, failureMessage);
+
+            String typeContent = null;
+            if (null != type) {
+                //Failure type to classify what caused the run to fail
+                typeContent = type.getTextContent();
+            }
+
+            String failureMessage = null;
+            if (messageAttribute != null) {
+                //Clean the verification message of new lines and commas.
+                failureMessage = messageAttribute.getTextContent().replace(",", "").replace("\n", "");
+            }
+
+            if(null != typeContent) {
+                if(null == failureMessage){
+                    failureMessage = "No failure message added by the Assertion. Please check the assertion type";
+                }
+                //Parse the type content and error message to classify the failure types
+                reportModel = reportMatcher.parse(typeContent, failureMessage);
+            }
 
             status = "fail";
         }
@@ -216,6 +230,10 @@ public class ReportBuilder {
 
         if (reportModel.generalFailure() != null) {
             testFailures.add(reportModel.generalFailure());
+        }
+
+        if(status.equals("fail") && testFailures.isEmpty()){
+            testFailures.add("Unknown/Skipped");
         }
 
 

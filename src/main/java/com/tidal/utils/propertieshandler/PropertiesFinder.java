@@ -6,6 +6,7 @@ import com.tidal.utils.encryptor.Decryptor;
 import com.tidal.utils.exceptions.PropertyHandlerException;
 
 import java.util.Locale;
+import java.util.Optional;
 import java.util.Properties;
 
 import static com.google.common.base.Strings.isNullOrEmpty;
@@ -27,6 +28,14 @@ public class PropertiesFinder {
             environment = setEnvironment();
         }
         return environment;
+    }
+
+    public static Optional<String> tryReadProperty(String key){
+        try {
+            return Optional.of(getProperty(key));
+        } catch (Exception ignored){
+            return Optional.empty();
+        }
     }
 
     public static String getProperty(String key) {

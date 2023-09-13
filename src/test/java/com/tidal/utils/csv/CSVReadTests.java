@@ -12,6 +12,15 @@ import static com.tidal.utils.data.GlobalData.getObjectData;
 
 public class CSVReadTests {
 
+
+    @Test
+    public void csvTest() {
+        ScenarioInfo.setScenarioName("testCase1");
+        CSVDataStore dataStore = new CSVDataStore();
+        DataResolver.resolveData(dataStore, "TestCSVFile");
+        Assert.assertEquals("Texas", dataStore.getHeader1());
+    }
+
     @Test
     public void readCSVTest() {
         CSVDataStore dataStore = new CSVDataStore();
@@ -24,7 +33,7 @@ public class CSVReadTests {
     public void readCSVTestAsMap() {
         ScenarioInfo.setScenarioName("testCase1");
         Map<String, String> map = DataResolver.resolveDataAsMap("TestCSVFile");
-        Assert.assertEquals("Texas", map.get("Header1"));
+        Assert.assertEquals("Texas, State", map.get("Header1"));
     }
 
     @Test

@@ -15,7 +15,7 @@ public class Helper {
 
     public static String randomString(int count) {
 
-        String letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvxxtz";
+        String letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvxxtz0123456789";
 
         StringBuilder builder = new StringBuilder();
         while (count-- != 0) {
