@@ -5,7 +5,8 @@ import org.jasypt.util.text.AES256TextEncryptor;
 
 import java.util.logging.Logger;
 
-import static com.google.common.base.Strings.isNullOrEmpty;
+import static com.tidal.utils.utils.CheckString.isNullOrEmpty;
+
 
 public class Decryptor {
 

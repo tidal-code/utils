@@ -1,6 +1,5 @@
 package com.tidal.utils.report;
 
-import com.google.common.base.Functions;
 import com.tidal.utils.filehandlers.FileOutWriter;
 import com.tidal.utils.filehandlers.FilePaths;
 import com.tidal.utils.filehandlers.FileReader;
@@ -18,6 +17,7 @@ import java.nio.file.Paths;
 import java.text.NumberFormat;
 import java.text.ParseException;
 import java.util.*;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -132,7 +132,7 @@ public class ReportBuilder {
 
     private static Optional<String> getAMaintenanceSuggestion() {
         String mostFailItem = testFailures.stream().filter(Objects::nonNull)
-                .collect(Collectors.groupingBy(Functions.identity(), Collectors.counting())).entrySet().stream()
+                .collect(Collectors.groupingBy(Function.identity(), Collectors.counting())).entrySet().stream()
                 .max(Map.Entry.comparingByValue())
                 .map(Map.Entry::getKey)
                 .orElse(null);
@@ -259,7 +259,7 @@ public class ReportBuilder {
         try {
             runTime = numberFormat.parse(node.getAttributes().getNamedItem("time").getTextContent()).floatValue();
         } catch (ParseException e) {
-            e.printStackTrace();
+            logger.error(e.getMessage());
         }
         return runTime;
     }

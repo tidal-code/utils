@@ -3,7 +3,8 @@ package com.tidal.utils.propertieshandler;
 
 import java.util.function.UnaryOperator;
 
-import static com.google.common.base.Strings.isNullOrEmpty;
+import static com.tidal.utils.utils.CheckString.isNullOrEmpty;
+
 
 public class Config {
 

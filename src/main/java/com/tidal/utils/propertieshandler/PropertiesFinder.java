@@ -9,7 +9,8 @@ import java.util.Locale;
 import java.util.Optional;
 import java.util.Properties;
 
-import static com.google.common.base.Strings.isNullOrEmpty;
+import static com.tidal.utils.utils.CheckString.isNullOrEmpty;
+
 
 public class PropertiesFinder {
     private static final String SECRET_KEY_NAME = "secretKeyName";

@@ -6,7 +6,7 @@ import org.w3c.dom.*;
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.google.common.base.Strings.isNullOrEmpty;
+import static com.tidal.utils.utils.CheckString.isNullOrEmpty;
 import static com.tidal.utils.xml.Processors.*;
 
 public class XmlBuilder {
