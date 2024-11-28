@@ -173,7 +173,7 @@
                 <configuration>
                     <publishingServerId>central</publishingServerId>
                     <autoPublish>true</autoPublish>
-                    <deploymentName>Wave</deploymentName>
+                    <deploymentName>Utils</deploymentName>
                 </configuration>
             </plugin>
             <plugin>
