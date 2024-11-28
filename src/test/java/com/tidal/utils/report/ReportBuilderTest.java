@@ -4,7 +4,7 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import static com.tidal.flow.assertions.Assert.verify;
+import static dev.tidalcode.flow.assertions.Assert.verify;
 
 
 public class ReportBuilderTest {
