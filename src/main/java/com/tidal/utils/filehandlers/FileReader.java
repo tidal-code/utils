@@ -48,6 +48,6 @@ public class FileReader {
     }
 
     public static InputStream getFileContentsAsStream(String resource) {
-        return ClassLoader.getSystemResourceAsStream(resource);
+        return Thread.currentThread().getContextClassLoader().getResourceAsStream(resource);
     }
 }
