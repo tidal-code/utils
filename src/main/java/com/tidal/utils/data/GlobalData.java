@@ -21,8 +21,6 @@ public class GlobalData {
         return objectDataMap.get();
     }
 
-
-
     public static void addData(String key, String value) {
         dataMap.get().put(key, value);
     }

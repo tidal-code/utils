@@ -1,5 +1,6 @@
 package com.tidal.utils.csv;
 
+import com.tidal.utils.data.TestUpdateData;
 import com.tidal.utils.scenario.ScenarioInfo;
 import org.junit.Assert;
 import org.junit.Test;
@@ -88,6 +89,15 @@ public class CSVReadTests {
         Assert.assertNotEquals(dataStore.getHeader2(), csvDataStoreCopy.getHeader1());
     }
 
+    @Test
+    public void readTestLinkDataFile(){
+        ScenarioInfo.setScenarioName("Test ID Read Tests");
+        CsvData csvData = new CsvData();
+        csvData.setCSVFolderAsDataFilePath();
+        String s = csvData.readDataFrom("TestLinkData", "Key");
+        System.out.println(s);
+    }
+
 }
 
 class CSVDataStore {
@@ -131,6 +141,7 @@ class CSVDataStoreCopy{
         this.header2 = header2;
     }
 }
+
 
 
 

@@ -18,44 +18,47 @@ import java.util.*;
 @SuppressWarnings("All")
 public class CsvData {
     private final Logger logger = LoggerFactory.getLogger(CsvData.class);
+    private String defaultDataFilePath = getDataFilePath();
 
-    public static synchronized void updateDataTo(String dataPoolName, String key, String value) {
+    public void setCSVFolderAsDataFilePath(){
+        defaultDataFilePath = Helper.getAbsoluteFromRelativePath("src/test/resources/csv") + "/";
+    }
+
+    public synchronized void updateDataTo(String dataPoolName, String key, String value) {
         String testCaseName = ScenarioInfo.getScenarioName();
         updateDataTo(dataPoolName, key, value, testCaseName);
     }
 
-    public static synchronized void updateDataTo(String dataPoolName, String key, String value, String testCaseName) {
+    public synchronized void updateDataTo(String dataPoolName, String key, String value, String testCaseName) {
         HashMap<String, String> map = new HashMap<>();
         map.put(key, value);
         updateDataTo(dataPoolName, map, testCaseName);
     }
 
-    public static synchronized void updateDataTo(String dataPoolName, Map<String, String> map) {
+    public synchronized void updateDataTo(String dataPoolName, Map<String, String> map) {
         String testCaseName = ScenarioInfo.getScenarioName();
         updateData(map, dataPoolName, testCaseName);
     }
 
-    public static synchronized void updateDataTo(String dataPoolName, Map<String, String> map, String testCaseName) {
+    public synchronized void updateDataTo(String dataPoolName, Map<String, String> map, String testCaseName) {
         updateData(map, dataPoolName, testCaseName);
     }
 
-    protected static synchronized String readDataFrom(String dataPoolName, String key) {
+    public synchronized String readDataFrom(String dataPoolName, String key) {
         String testCaseName = ScenarioInfo.getScenarioName();
-        return readDataFrom(dataPoolName, key, testCaseName).trim();
+        return readDataFrom(dataPoolName, key, testCaseName);
     }
 
-    protected static synchronized String readDataFrom(String dataPoolName, String key, String testcaseName) {
-        CsvData csvData = new CsvData();
-        return csvData.readData(dataPoolName, testcaseName).get(key).trim();
+    public synchronized String readDataFrom(String dataPoolName, String key, String testcaseName) {
+        return readData(dataPoolName, testcaseName).get(key);
     }
 
-    protected static synchronized LinkedHashMap<String, String> readData(String dataPoolName) {
+    public synchronized LinkedHashMap<String, String> readData(String dataPoolName) {
         String testCaseName = ScenarioInfo.getScenarioName();
-        CsvData csvData = new CsvData();
-        return csvData.readData(dataPoolName, testCaseName);
+        return readData(dataPoolName, testCaseName);
     }
 
-    private static synchronized void updateData(Map<String, String> dataMap, String dataPoolName, String testCaseName) {
+    private synchronized void updateData(Map<String, String> dataMap, String dataPoolName, String testCaseName) {
 
         String[] nextLine;
         List<String[]> arrayList = new ArrayList<>();
@@ -82,7 +85,7 @@ public class CsvData {
             index++;
         }
 
-        try (CSVReader reader = new CSVReader(new FileReader(CsvData.getDataFilePath() + dataPoolName + ".csv"))) {
+        try (CSVReader reader = new CSVReader(new FileReader( defaultDataFilePath+ dataPoolName + ".csv"))) {
 
             CSVWriter writer = null;
             try {
@@ -93,7 +96,7 @@ public class CsvData {
                         arrayList.add(nextLine);
                     }
                 }
-                writer = new CSVWriter(new FileWriter((getDataFilePath() + dataPoolName + ".csv")));
+                writer = new CSVWriter(new FileWriter((defaultDataFilePath + dataPoolName + ".csv")));
             } catch (IOException | CsvValidationException e) {
                 e.printStackTrace();
             } finally {
@@ -108,7 +111,7 @@ public class CsvData {
         }
     }
 
-    public static synchronized String getDataFilePath() {
+    public synchronized String getDataFilePath() {
         String csvFilePath = Helper.getAbsoluteFromRelativePath("src/test/resources/csv");
         String env = PropertiesFinder.getEnvironment();
         String filePath = csvFilePath + "/" + env + "/";
@@ -123,9 +126,9 @@ public class CsvData {
 
         //Linked HashMap sort the entries in order
         LinkedHashMap<String, String> hashMap = new LinkedHashMap<>();
-        logger.info("Reading data from: " + CsvData.getDataFilePath() + dataPoolName + ".csv");
+        logger.info("Reading data from: " + defaultDataFilePath + dataPoolName + ".csv");
 
-        try (FileReader fileReader = new FileReader(CsvData.getDataFilePath() + dataPoolName + ".csv")) {
+        try (FileReader fileReader = new FileReader(defaultDataFilePath + dataPoolName + ".csv")) {
             try (CSVReader reader = new CSVReader(fileReader)) {
 
                 while ((nextLine = reader.readNext()) != null) {
@@ -176,9 +179,9 @@ public class CsvData {
         List<Map<String, String>> dataCollectionList = new ArrayList<>();
 
 
-        logger.info("Reading data from: " + CsvData.getDataFilePath() + dataPoolName + ".csv");
+        logger.info("Reading data from: " + defaultDataFilePath + dataPoolName + ".csv");
 
-        try (FileReader fileReader = new FileReader(CsvData.getDataFilePath() + dataPoolName + ".csv")) {
+        try (FileReader fileReader = new FileReader(defaultDataFilePath + dataPoolName + ".csv")) {
             try (CSVReader reader = new CSVReader(fileReader)) {
 
                 while ((nextLine = reader.readNext()) != null) {
@@ -236,9 +239,9 @@ public class CsvData {
         List<Map<String, String>> dataCollectionList = new ArrayList<>();
 
 
-        logger.info("Reading data from: " + CsvData.getDataFilePath() + dataPoolName + ".csv");
+        logger.info("Reading data from: " + defaultDataFilePath + dataPoolName + ".csv");
 
-        try (FileReader fileReader = new FileReader(CsvData.getDataFilePath() + dataPoolName + ".csv")) {
+        try (FileReader fileReader = new FileReader(defaultDataFilePath + dataPoolName + ".csv")) {
             try (CSVReader reader = new CSVReader(fileReader)) {
 
                 while ((nextLine = reader.readNext()) != null) {
